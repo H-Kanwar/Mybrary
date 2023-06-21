@@ -1,17 +1,27 @@
 const express= require('express')
 const router = express.Router()
 const multer = require('multer')
+const path=require('path')
 const Book=require('../models/book')
 const Author=require('../models/author')
-const path=require('path')
 const fs=require('fs')
 const { error } = require('console')
 const uploadPath = path.join('public',Book.coverImageBasePath)
-const imageMimeTypes = ['images/jpg','images/png','images/gif']
+const imageMimeTypes = ['image/jpeg','image/png','image/gif']
 const upload = multer({
     dest:uploadPath,
     fileFilter:(req,file,callback)=>{
+<<<<<<< HEAD
         callback(null,imageMimeTypes.includes(file.mimetype) )
+=======
+        // if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+        //     callback(null, true);
+        //   } else {
+        //     callback(null, false);
+        //     // return callback(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        //   }
+        callback(null, imageMimeTypes.includes(file.mimetype))
+>>>>>>> 1915e80 (error removed Books Create/Index/New)
     }
 })
  
@@ -29,7 +39,7 @@ router.get('/',async (req,res)=>{
     }
 
     try{
-        const books=await Book.find({})
+        const books=await query.exec()
         res.render('books/index',{
             books:books,
             searchOptions:req.query
@@ -45,7 +55,7 @@ router.get('/new',async (req,res)=>{
 })
 
 // create book route
-router.post('/',upload.single('Cover'),async (req,res)=>{
+router.post('/',upload.single('cover'),async (req,res)=>{
     const fileName = req.file != null ? req.file.filename : null
     const book= new Book({
         title:req.body.title,
@@ -55,8 +65,6 @@ router.post('/',upload.single('Cover'),async (req,res)=>{
         coverImageName:fileName,
         description:req.body.description
     })
-    console.log(req.file)
-    console.log(fileName)
     try{
         const newBook = await book.save()
         res.redirect(`books`)
