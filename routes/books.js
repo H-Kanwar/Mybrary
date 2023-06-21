@@ -11,9 +11,7 @@ const imageMimeTypes = ['image/jpeg','image/png','image/gif']
 const upload = multer({
     dest:uploadPath,
     fileFilter:(req,file,callback)=>{
-<<<<<<< HEAD
         callback(null,imageMimeTypes.includes(file.mimetype) )
-=======
         // if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
         //     callback(null, true);
         //   } else {
@@ -21,7 +19,6 @@ const upload = multer({
         //     // return callback(new Error('Only .png, .jpg and .jpeg format allowed!'));
         //   }
         callback(null, imageMimeTypes.includes(file.mimetype))
->>>>>>> 1915e80 (error removed Books Create/Index/New)
     }
 })
  
