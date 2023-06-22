@@ -93,6 +93,4 @@ async function renderNewPage(res, book, hasError=false){
     }
 }
 
-
-
 module.exports=router
